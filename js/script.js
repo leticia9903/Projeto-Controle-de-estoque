@@ -38,8 +38,6 @@ formLogin.addEventListener("submit", async function (evento) {
         sessionStorage.setItem("usuarioNome", usuario.nome);
         sessionStorage.setItem("usuarioEmail", usuario.email);
 
-        alert("Login realizado com sucesso!");
-
         window.location.href = "painel.html";
 
     } catch (erro) {
