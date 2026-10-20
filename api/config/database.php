@@ -3,11 +3,33 @@
 
 class Database
 {
-    private string $host = '127.0.0.1';
+    private string $host;
     private string $port = '3306';
-    private string $dbname = 'estoque_escolar';
-    private string $username = 'root';
-    private string $password = '';
+    private string $dbname;
+    private string $username;
+    private string $password;
+
+    public function __construct()
+    {
+        // AMBIENTE LOCAL OU HOSPEDAGEM
+        $ambiente = getenv('APP_ENV') ?: 'local';
+
+        if ($ambiente === 'producao') {
+            // DADOS DA HOSPEDAGEM INFINITYFREE
+            $this->host = 'sql303.infinityfree.com';
+            $this->dbname = 'if0_43221614_Estoque';
+            $this->username = 'if0_43221614';
+
+            // SUBSTITUA PELA SENHA REAL DO MYSQL DA HOSPEDAGEM
+            $this->password = 'SUA_SENHA_MYSQL_AQUI';
+        } else {
+            // DADOS DO XAMPP
+            $this->host = '127.0.0.1';
+            $this->dbname = 'estoque_escolar';
+            $this->username = 'root';
+            $this->password = '';
+        }
+    }
 
     public function conectar(): PDO
     {
