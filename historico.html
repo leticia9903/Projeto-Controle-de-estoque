@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico | Estoque Escolar</title>
+    <link rel="stylesheet" href="css/historico.css">
+    <script src="js/historico.js" defer></script>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="marca">
+            <div class="marca-icone">E</div>
+            <div>
+                <h2>Estoque Escolar</h2>
+                <p>Controle de materiais</p>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="painel.html">Painel</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="entrada.html">Entrada de produtos</a>
+            <a href="retirada.html">Retirada de produtos</a>
+            <a href="historico.html" class="ativo">Histórico</a>
+            <a href="relatorios.html">Relatórios</a>
+        </nav>
+
+        <button id="btnSair" class="btn-sair">Sair do sistema</button>
+    </aside>
+
+    <main class="conteudo">
+        <header class="cabecalho">
+            <div>
+                <p class="subtitulo">CONTROLE DE ESTOQUE</p>
+                <h1>Histórico de movimentações</h1>
+                <p>Consulte as entradas e retiradas de materiais escolares.</p>
+            </div>
+
+            <div class="usuario">
+                <div class="avatar" id="avatarUsuario">U</div>
+                <span id="nomeUsuario">Usuário</span>
+            </div>
+        </header>
+
+        <section class="resumo">
+            <article class="card-resumo">
+                <span>Total de movimentações</span>
+                <strong id="totalMovimentacoes">0</strong>
+            </article>
+
+            <article class="card-resumo">
+                <span>Entradas registradas</span>
+                <strong id="totalEntradas">0</strong>
+            </article>
+
+            <article class="card-resumo">
+                <span>Retiradas registradas</span>
+                <strong id="totalRetiradas">0</strong>
+            </article>
+        </section>
+
+        <section class="painel-historico">
+            <div class="topo-painel">
+                <div>
+                    <h2>Movimentações registradas</h2>
+                    <p>Consulte os registros armazenados no sistema.</p>
+                </div>
+
+                <button type="button" id="btnAtualizar" class="btn-atualizar">
+                    Atualizar
+                </button>
+            </div>
+
+            <div class="filtros">
+                <div class="campo-pesquisa">
+                    <label for="pesquisa">Pesquisar</label>
+                    <input
+                        type="search"
+                        id="pesquisa"
+                        placeholder="Produto ou responsável..."
+                    >
+                </div>
+
+                <div class="campo-filtro">
+                    <label for="filtroTipo">Tipo de movimentação</label>
+                    <select id="filtroTipo">
+                        <option value="">Todas</option>
+                        <option value="Entrada">Entradas</option>
+                        <option value="Retirada">Retiradas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="mensagem" class="mensagem" role="status"></div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data e hora</th>
+                            <th>Tipo</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Responsável</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaHistorico">
+                        <tr>
+                            <td colspan="6" class="vazio">
+                                Carregando movimentações...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="contadorResultados" class="contador">
+                Carregando registros...
+            </p>
+        </section>
+    </main>
+
+</body>
+</html>

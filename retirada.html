@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirada de Materiais | Controle de Estoque Escolar</title>
+
+    <link rel="stylesheet" href="css/retirada.css">
+    <script src="js/retirada.js" defer></script>
+</head>
+<body>
+    <div class="layout">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">E</div>
+                <div>
+                    <h2>Estoque Escolar</h2>
+                    <span>Controle de materiais</span>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <a href="painel.html">Painel principal</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="entrada.html">Entrada de materiais</a>
+                <a href="retirada.html" class="ativo">Retirada de materiais</a>
+                <a href="historico.html">Histórico</a>
+                <a href="relatorios.html">Relatórios</a>
+            </nav>
+
+            <div class="usuario-sidebar">
+                <div class="avatar" id="avatarUsuario">U</div>
+                <div class="usuario-info">
+                    <strong id="nomeUsuario">Usuário</strong>
+                    <span>Administrador</span>
+                </div>
+                <button type="button" id="btnSair" class="btn-sair">
+                    Sair
+                </button>
+            </div>
+        </aside>
+
+        <main class="conteudo">
+            <header class="topo">
+                <div>
+                    <span class="subtitulo">MOVIMENTAÇÃO DE ESTOQUE</span>
+                    <h1>Retirada de materiais</h1>
+                    <p>Registre os materiais retirados do estoque escolar.</p>
+                </div>
+
+                <a href="produtos.html" class="btn-secundario">
+                    Consultar produtos
+                </a>
+            </header>
+
+            <section class="cartoes-resumo">
+                <article class="cartao">
+                    <span>Produto selecionado</span>
+                    <strong id="nomeProdutoResumo">Nenhum</strong>
+                </article>
+
+                <article class="cartao">
+                    <span>Estoque disponível</span>
+                    <strong id="estoqueDisponivel">—</strong>
+                </article>
+
+                <article class="cartao">
+                    <span>Estoque após retirada</span>
+                    <strong id="estoqueFinal">—</strong>
+                </article>
+            </section>
+
+            <section class="painel-formulario">
+                <div class="cabecalho-painel">
+                    <div class="icone-painel">−</div>
+                    <div>
+                        <h2>Registrar retirada</h2>
+                        <p>Preencha os dados da movimentação.</p>
+                    </div>
+                </div>
+
+                <div id="mensagem" class="mensagem" role="status"
+                     aria-live="polite"></div>
+
+                <form id="formRetirada">
+                    <div class="campo campo-completo">
+                        <label for="produtoId">Produto *</label>
+                        <select id="produtoId" name="produtoId" required>
+                            <option value="">Carregando produtos...</option>
+                        </select>
+                        <small>Selecione o material que será retirado.</small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="quantidade">Quantidade a retirar *</label>
+                        <input
+                            type="number"
+                            id="quantidade"
+                            name="quantidade"
+                            min="1"
+                            step="1"
+                            placeholder="Ex.: 5"
+                            required
+                        >
+                        <small id="ajudaQuantidade">
+                            Informe uma quantidade inteira maior que zero.
+                        </small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="responsavel">Responsável pela retirada *</label>
+                        <input
+                            type="text"
+                            id="responsavel"
+                            name="responsavel"
+                            maxlength="150"
+                            placeholder="Nome do responsável"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo campo-completo">
+                        <label for="observacao">Observações</label>
+                        <textarea
+                            id="observacao"
+                            name="observacao"
+                            rows="3"
+                            maxlength="255"
+                            placeholder="Informe a finalidade da retirada, turma ou setor..."
+                        ></textarea>
+                    </div>
+
+                    <div class="aviso-estoque">
+                        <strong>Atenção:</strong>
+                        a retirada será registrada no sistema e diminuirá
+                        automaticamente a quantidade disponível.
+                    </div>
+
+                    <div class="acoes-formulario">
+                        <button type="reset" class="btn-cancelar">
+                            Limpar
+                        </button>
+
+                        <button type="submit" id="btnRegistrar"
+                                class="btn-registrar">
+                            Registrar retirada
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <footer class="rodape">
+                Controle de Estoque Escolar
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

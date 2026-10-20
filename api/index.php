@@ -1,11 +1,22 @@
 
 <?php
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/controllers/UsuarioController.php';
 require_once __DIR__ . '/controllers/ProdutoController.php';
+require_once __DIR__ . '/controllers/HistoricoController.php';
+require_once __DIR__ . '/controllers/RelatorioController.php';
 
 $caminho = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $metodo = $_SERVER['REQUEST_METHOD'];
@@ -54,6 +65,16 @@ if (
 }
 
 
+    // ROTA: EXCLUIR PRODUTO
+    if (
+        preg_match('#^/produtos/([0-9]+)$#', $caminho, $correspondencia)
+        && $metodo === 'DELETE'
+    ) {
+        $controller = new ProdutoController($conexao);
+        $controller->excluir((int) $correspondencia[1]);
+        exit;
+    }
+
     // ROTA: REGISTRAR ENTRADA DE PRODUTOS
     if (
         preg_match('#^/produtos/([0-9]+)/entrada$#', $caminho, $correspondencia)
@@ -71,6 +92,21 @@ if (
     ) {
         $controller = new ProdutoController($conexao);
         $controller->retirar((int) $correspondencia[1]);
+        exit;
+    }
+
+    // ROTA: LISTAR HISTÓRICO DE MOVIMENTAÇÕES
+if ($caminho === '/historico' && $metodo === 'GET') {
+    $controller = new HistoricoController($conexao);
+    $controller->listar();
+    exit;
+}
+
+
+    // ROTA: CONSULTAR RELATÓRIOS
+    if ($caminho === '/relatorios' && $metodo === 'GET') {
+        $controller = new RelatorioController($conexao);
+        $controller->consultar();
         exit;
     }
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada de Materiais | Estoque Escolar</title>
+    <link rel="stylesheet" href="css/entrada.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="menu-lateral">
+            <div class="marca">
+                <div class="marca-icone">E</div>
+                <div>
+                    <h2>Estoque Escolar</h2>
+                    <span>Gestão de materiais</span>
+                </div>
+            </div>
+
+            <nav>
+                <a href="painel.html" class="menu-item">▦ Painel principal</a>
+                <a href="produtos.html" class="menu-item">▤ Produtos</a>
+                <a href="entrada.html" class="menu-item ativo">↓ Entrada de materiais</a>
+                <a href="retirada.html" class="menu-item">↑ Retirada de materiais</a>
+                <a href="historico.html" class="menu-item">◷ Histórico</a>
+                <a href="relatorios.html" class="menu-item">▥ Relatórios</a>
+            </nav>
+
+            <button id="btnSair" class="btn-sair">Sair do sistema</button>
+        </aside>
+
+        <main class="conteudo">
+            <header class="topo">
+                <div>
+                    <h1>Entrada de materiais</h1>
+                    <p>Registre os materiais recebidos pela escola.</p>
+                </div>
+
+                <div class="usuario">
+                    <div class="avatar" id="avatarUsuario">U</div>
+                    <span id="nomeUsuario">Usuário</span>
+                </div>
+            </header>
+
+            <section class="cartao introducao">
+                <div class="icone-entrada">↓</div>
+                <div>
+                    <h2>Registrar nova entrada</h2>
+                    <p>Informe o produto e a quantidade recebida para atualizar o estoque.</p>
+                </div>
+            </section>
+
+            <section class="cartao">
+                <h2>Dados da entrada</h2>
+                <p class="descricao">Os campos marcados com * são obrigatórios.</p>
+
+                <form id="formEntrada">
+                    <div class="campo">
+                        <label for="produto">Produto *</label>
+                        <select id="produto" required>
+                            <option value="">Carregando produtos...</option>
+                        </select>
+                    </div>
+
+                    <div class="resumo-estoque" id="resumoEstoque" hidden>
+                        <div>
+                            <span>Estoque atual</span>
+                            <strong id="estoqueAtual">0</strong>
+                        </div>
+                        <div>
+                            <span>Estoque após a entrada</span>
+                            <strong id="estoqueFinal">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="campo">
+                        <label for="quantidade">Quantidade recebida *</label>
+                        <input
+                            type="number"
+                            id="quantidade"
+                            min="1"
+                            step="1"
+                            placeholder="Ex.: 30"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo">
+                        <label for="responsavel">Responsável pelo registro</label>
+                        <input
+                            type="text"
+                            id="responsavel"
+                            maxlength="150"
+                            placeholder="Nome de quem recebeu os materiais"
+                        >
+                    </div>
+
+                    <div class="campo">
+                        <label for="observacao">Observação</label>
+                        <textarea
+                            id="observacao"
+                            maxlength="255"
+                            rows="3"
+                            placeholder="Ex.: Recebimento de materiais para o início do semestre."
+                        ></textarea>
+                    </div>
+
+                    <div id="mensagem" class="mensagem" role="status"></div>
+
+                    <div class="acoes">
+                        <button type="reset" class="btn-secundario" id="btnLimpar">
+                            Limpar campos
+                        </button>
+                        <button type="submit" class="btn-principal" id="btnRegistrar">
+                            Registrar entrada
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <footer>Controle de Estoque Escolar © 2026</footer>
+        </main>
+    </div>
+
+    <script src="js/entrada.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f6f3;
+    color: #26352b;
+    min-height: 100vh;
+}
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 430px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 35px rgba(25, 70, 43, 0.10);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #176b43;
+    color: #ffffff;
+    border-radius: 14px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.logo h1 {
+    color: #176b43;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.logo p,
+.login-heading p {
+    color: #77827b;
+    font-size: 14px;
+}
+
+.login-heading {
+    margin-bottom: 24px;
+}
+
+.login-heading h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d9e2dc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #176b43;
+    box-shadow: 0 0 0 3px rgba(23, 107, 67, 0.10);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #176b43;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #105333;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+#mensagem {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #b42318;
+}
+
+#mensagem:empty {
+    display: none;
+}
+
+.cadastro-link {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 24px;
+}
+
+.cadastro-link a {
+    color: #176b43;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cadastro-link a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    margin-top: 32px;
+    color: #89938c;
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 28px 22px;
+    }
+
+    .logo h1 {
+        font-size: 21px;
+    }
+}
+```

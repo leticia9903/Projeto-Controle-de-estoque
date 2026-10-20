@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produtos | Controle de Estoque Escolar</title>
+
+    <link rel="stylesheet" href="css/produtos.css">
+</head>
+<body>
+
+    <div class="layout">
+
+        <aside class="menu-lateral">
+            <div class="marca">
+                <div class="marca-icone">E</div>
+                <div>
+                    <h2>Estoque Escolar</h2>
+                    <span>Gestão de materiais</span>
+                </div>
+            </div>
+
+            <nav>
+                <a href="painel.html" class="menu-item">▦ Painel principal</a>
+                <a href="produtos.html" class="menu-item ativo">▤ Produtos</a>
+                <a href="entrada.html" class="menu-item">↓ Entrada de materiais</a>
+                <a href="retirada.html" class="menu-item">↑ Retirada de materiais</a>
+                <a href="historico.html" class="menu-item">◷ Histórico</a>
+                <a href="relatorios.html" class="menu-item">▥ Relatórios</a>
+            </nav>
+
+            <button id="btnSair" class="btn-sair">Sair do sistema</button>
+        </aside>
+
+        <main class="conteudo">
+
+            <header class="topo">
+                <div>
+                    <h1>Produtos</h1>
+                    <p>Cadastre, consulte e edite os materiais escolares.</p>
+                </div>
+
+                <div class="usuario">
+                    <div class="avatar" id="avatarUsuario">U</div>
+                    <span id="nomeUsuario">Usuário</span>
+                </div>
+            </header>
+
+            <section class="cartao formulario-cartao">
+                <div class="titulo-secao">
+                    <h2 id="tituloFormulario">Cadastrar produto</h2>
+                    <p>Preencha os dados do material escolar.</p>
+                </div>
+
+                <form id="formProduto">
+
+                    <input type="hidden" id="produtoId">
+
+                    <div class="campos-grid">
+
+                        <div class="campo">
+                            <label for="nome">Nome do produto *</label>
+                            <input
+                                type="text"
+                                id="nome"
+                                maxlength="150"
+                                placeholder="Ex.: Caderno universitário"
+                                required
+                            >
+                        </div>
+
+                        <div class="campo">
+                            <label for="categoria">Categoria</label>
+                            <input
+                                type="text"
+                                id="categoria"
+                                maxlength="100"
+                                placeholder="Ex.: Material escolar"
+                            >
+                        </div>
+
+                        <div class="campo">
+                            <label for="marca">Marca</label>
+                            <input
+                                type="text"
+                                id="marca"
+                                maxlength="100"
+                                placeholder="Ex.: Tilibra"
+                            >
+                        </div>
+
+                        <div class="campo">
+                            <label for="quantidade">Quantidade inicial *</label>
+                            <input
+                                type="number"
+                                id="quantidade"
+                                min="0"
+                                step="1"
+                                value="0"
+                                required
+                            >
+                            <small id="ajudaQuantidade">
+                                Informe a quantidade disponível no cadastro inicial.
+                            </small>
+                        </div>
+
+                        <div class="campo">
+                            <label for="validade">Data de validade</label>
+                            <input type="date" id="validade">
+                        </div>
+
+                    </div>
+
+                    <p class="aviso" id="avisoQuantidade">
+                        Ao editar um produto, a quantidade do estoque não será alterada.
+                        Use as telas de entrada e retirada para movimentar o estoque.
+                    </p>
+
+                    <div id="mensagemFormulario" class="mensagem" role="status"></div>
+
+                    <div class="acoes-formulario">
+                        <button type="button" id="btnCancelar" class="btn-secundario" hidden>
+                            Cancelar edição
+                        </button>
+
+                        <button type="submit" id="btnSalvar" class="btn-principal">
+                            Cadastrar produto
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <section class="cartao lista-cartao">
+
+                <div class="cabecalho-lista">
+                    <div>
+                        <h2>Produtos cadastrados</h2>
+                        <p>Consulte os materiais registrados no sistema.</p>
+                    </div>
+
+                    <button type="button" id="btnAtualizar" class="btn-secundario">
+                        Atualizar lista
+                    </button>
+                </div>
+
+                <div class="filtro">
+                    <label for="busca">Buscar produto</label>
+                    <input
+                        type="search"
+                        id="busca"
+                        placeholder="Digite o nome, categoria ou marca..."
+                    >
+                </div>
+
+                <div id="mensagemLista" class="mensagem" role="status"></div>
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Marca</th>
+                                <th>Quantidade</th>
+                                <th>Validade</th>
+                                <th>Situação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaProdutos">
+                            <tr>
+                                <td colspan="7">Carregando produtos...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="legenda">
+                    Estoque baixo: 1 unidade ou menos. A situação é apenas um alerta visual.
+                </p>
+
+            </section>
+
+            <footer>Controle de Estoque Escolar © 2026</footer>
+
+        </main>
+
+    </div>
+
+    <script src="js/produtos.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | Estoque Escolar</title>
+
+    <link rel="stylesheet" href="css/relatorios.css">
+    <script src="js/relatorios.js" defer></script>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="marca">
+            <div class="marca-icone">E</div>
+            <div>
+                <h2>Estoque Escolar</h2>
+                <p>Controle de materiais</p>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="painel.html">Painel</a>
+            <a href="produtos.html">Produtos</a>
+            <a href="entrada.html">Entrada de produtos</a>
+            <a href="retirada.html">Retirada de produtos</a>
+            <a href="historico.html">Histórico</a>
+            <a href="relatorios.html" class="ativo">Relatórios</a>
+        </nav>
+
+        <button type="button" id="btnSair" class="btn-sair">
+            Sair do sistema
+        </button>
+    </aside>
+
+    <main class="conteudo">
+
+        <header class="cabecalho">
+            <div>
+                <p class="subtitulo">CONTROLE DE ESTOQUE</p>
+                <h1>Relatórios</h1>
+                <p>Consulte os indicadores do estoque e as movimentações.</p>
+            </div>
+
+            <div class="usuario">
+                <div class="avatar" id="avatarUsuario">U</div>
+                <span id="nomeUsuario">Usuário</span>
+            </div>
+        </header>
+
+        <!-- RESUMO DO ESTOQUE -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <h2>Resumo do estoque</h2>
+                <p>Indicadores gerais dos materiais cadastrados.</p>
+            </div>
+
+            <div class="indicadores">
+                <article class="card-indicador">
+                    <span>Produtos cadastrados</span>
+                    <strong id="totalProdutos">—</strong>
+                </article>
+
+                <article class="card-indicador">
+                    <span>Unidades disponíveis</span>
+                    <strong id="totalUnidades">—</strong>
+                </article>
+
+                <article class="card-indicador">
+                    <span>Produtos sem estoque</span>
+                    <strong id="produtosSemEstoque">—</strong>
+                </article>
+            </div>
+        </section>
+
+        <!-- RESUMO DAS MOVIMENTAÇÕES -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <h2>Movimentações</h2>
+                <p>Consulte os totais ou filtre por um período específico.</p>
+            </div>
+
+            <div class="filtros">
+                <div class="campo">
+                    <label for="dataInicio">Data inicial</label>
+                    <input type="date" id="dataInicio">
+                </div>
+
+                <div class="campo">
+                    <label for="dataFim">Data final</label>
+                    <input type="date" id="dataFim">
+                </div>
+
+                <div class="acoes-filtro">
+                    <button type="button" id="btnFiltrar" class="btn-principal">
+                        Consultar período
+                    </button>
+
+                    <button type="button" id="btnLimpar" class="btn-secundario">
+                        Histórico completo
+                    </button>
+                </div>
+            </div>
+
+            <div id="mensagem" class="mensagem" role="status"></div>
+
+            <div class="indicadores indicadores-movimentacoes">
+                <article class="card-indicador">
+                    <span>Total de movimentações</span>
+                    <strong id="totalMovimentacoes">—</strong>
+                </article>
+
+                <article class="card-indicador">
+                    <span>Entradas registradas</span>
+                    <strong id="totalEntradas">—</strong>
+                </article>
+
+                <article class="card-indicador">
+                    <span>Retiradas registradas</span>
+                    <strong id="totalRetiradas">—</strong>
+                </article>
+            </div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data e hora</th>
+                            <th>Tipo</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Responsável</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaMovimentacoes">
+                        <tr>
+                            <td colspan="6" class="vazio">
+                                Carregando movimentações...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="contadorMovimentacoes" class="contador"></p>
+        </section>
+
+        <!-- RELATÓRIO DE VALIDADE -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <h2>Controle de validade</h2>
+                <p>Produtos vencidos e produtos com vencimento nos próximos 30 dias.</p>
+            </div>
+
+            <div class="subsecao">
+                <h3 class="titulo-vencidos">Produtos vencidos</h3>
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Data de validade</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaVencidos">
+                            <tr>
+                                <td colspan="3" class="vazio">
+                                    Carregando produtos vencidos...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="subsecao">
+                <h3 class="titulo-proximos">Próximos do vencimento</h3>
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Data de validade</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaProximos">
+                            <tr>
+                                <td colspan="3" class="vazio">
+                                    Carregando produtos próximos do vencimento...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="rodape-acoes">
+            <p>Relatório gerado pelo Controle de Estoque Escolar.</p>
+            <button type="button" id="btnImprimir" class="btn-principal">
+                Imprimir relatório
+            </button>
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f7f4;
+    color: #25352c;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    padding: 28px 18px;
+    background: #ffffff;
+    border-right: 1px solid #e1e9e3;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 38px;
+}
+
+.marca-icone {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: #176b45;
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.marca h2 {
+    font-size: 16px;
+    color: #176b45;
+}
+
+.marca p {
+    font-size: 11px;
+    color: #7c8b81;
+    margin-top: 4px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu a {
+    padding: 13px 12px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #58675d;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.menu a:hover,
+.menu a.ativo {
+    background: #e7f4eb;
+    color: #176b45;
+    font-weight: bold;
+}
+
+.btn-sair {
+    margin-top: auto;
+    padding: 12px;
+    border: 1px solid #e1e9e3;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #b33a3a;
+    cursor: pointer;
+}
+
+.conteudo {
+    margin-left: 250px;
+    padding: 35px;
+}
+
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.subtitulo {
+    color: #238153;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.cabecalho h1 {
+    font-size: 27px;
+    margin-bottom: 9px;
+}
+
+.cabecalho > div:first-child > p:last-child {
+    color: #7b887f;
+    font-size: 14px;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.avatar {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #dcefe2;
+    color: #176b45;
+    font-weight: bold;
+}
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card-resumo {
+    background: #ffffff;
+    border: 1px solid #e4ebe5;
+    border-radius: 13px;
+    padding: 23px;
+}
+
+.card-resumo span {
+    display: block;
+    color: #78867c;
+    font-size: 13px;
+    margin-bottom: 13px;
+}
+
+.card-resumo strong {
+    color: #176b45;
+    font-size: 29px;
+}
+
+.painel-historico {
+    background: #ffffff;
+    border: 1px solid #e4ebe5;
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.topo-painel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.topo-painel h2 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.topo-painel p {
+    font-size: 13px;
+    color: #7b887f;
+}
+
+.btn-atualizar {
+    padding: 11px 17px;
+    border: none;
+    border-radius: 8px;
+    background: #176b45;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-atualizar:hover {
+    background: #105638;
+}
+
+.btn-atualizar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.filtros {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.filtros label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.filtros input,
+.filtros select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d8e3da;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #25352c;
+    outline: none;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    border-color: #238153;
+    box-shadow: 0 0 0 3px #e7f4eb;
+}
+
+.mensagem {
+    display: none;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.mensagem:not(:empty) {
+    display: block;
+}
+
+.mensagem.erro {
+    color: #a32e2e;
+    background: #fff0f0;
+}
+
+.mensagem.sucesso {
+    color: #176b45;
+    background: #e7f4eb;
+}
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: #f5f8f5;
+}
+
+th {
+    padding: 14px 12px;
+    color: #6b796f;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #edf1ed;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #fafcfb;
+}
+
+.tipo {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.tipo.entrada {
+    color: #176b45;
+    background: #e1f5e8;
+}
+
+.tipo.retirada {
+    color: #a34c24;
+    background: #fff0e5;
+}
+
+.quantidade {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.vazio {
+    text-align: center;
+    color: #87938a;
+    padding: 35px 15px;
+}
+
+.contador {
+    margin-top: 17px;
+    color: #7b887f;
+    font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+    .sidebar {
+        width: 215px;
+    }
+
+    .conteudo {
+        margin-left: 215px;
+        padding: 25px;
+    }
+
+    .resumo {
+        gap: 10px;
+    }
+
+    .card-resumo {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 760px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 18px;
+    }
+
+    .marca {
+        margin-bottom: 18px;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .btn-sair {
+        margin-top: 18px;
+    }
+
+    .conteudo {
+        margin-left: 0;
+        padding: 20px 14px;
+    }
+
+    .cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .cabecalho h1 {
+        font-size: 23px;
+    }
+
+    .resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        grid-template-columns: 1fr;
+    }
+
+    .painel-historico {
+        padding: 17px;
+    }
+
+    .topo-painel {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

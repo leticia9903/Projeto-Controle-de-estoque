@@ -1,11 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Login | Controle de Estoque Escolar</title>
+    <link rel="shortcut icon" href="icon_estoque.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+
+    <main class="login-container">
+
+        <section class="login-card">
+
+            <div class="logo">
+                <div class="logo-icon">E</div>
+                <h1>Estoque Escolar</h1>
+                <p>Controle de materiais escolares</p>
+            </div>
+
+            <div class="login-heading">
+                <h2>Bem-vindo!</h2>
+                <p>Entre com seus dados para continuar.</p>
+            </div>
+
+            <form id="formLogin">
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        required
+                    >
+                </div>
+
+                <p id="mensagem" role="alert"></p>
+
+                <button type="submit" id="botaoEntrar">
+                    Entrar no sistema
+                </button>
+
+            </form>
+
+            <p class="cadastro-link">
+                Ainda não tem uma conta?
+                <a href="cadastro.html">Cadastre-se</a>
+            </p>
+
+            <footer>
+                Controle de Estoque Escolar
+            </footer>
+
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+
 </body>
 </html>
+```

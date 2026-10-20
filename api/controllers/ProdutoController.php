@@ -1,4 +1,3 @@
-```php
 <?php
 
 class ProdutoController
@@ -464,6 +463,57 @@ class ProdutoController
         }
     }
 
+    
+    // EXCLUIR PRODUTO
+    public function excluir(int $id): void
+    {
+        if ($id <= 0) {
+            $this->responder(400, [
+                'sucesso' => false,
+                'mensagem' => 'Identificador do produto inválido.'
+            ]);
+            return;
+        }
+
+        try {
+            $sql = 'DELETE FROM produtos WHERE id = :id';
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute([':id' => $id]);
+
+            if ($consulta->rowCount() === 0) {
+                $this->responder(404, [
+                    'sucesso' => false,
+                    'mensagem' => 'Produto não encontrado.'
+                ]);
+                return;
+            }
+
+            $this->responder(200, [
+                'sucesso' => true,
+                'mensagem' => 'Produto excluído com sucesso.'
+            ]);
+
+        } catch (PDOException $erro) {
+            error_log(
+                'Erro ao excluir produto: ' . $erro->getMessage()
+            );
+
+            if ($erro->getCode() === '23000') {
+                $this->responder(409, [
+                    'sucesso' => false,
+                    'mensagem' => 'Este produto possui movimentações registradas e não pode ser excluído.'
+                ]);
+                return;
+            }
+
+            $this->responder(500, [
+                'sucesso' => false,
+                'mensagem' => 'Não foi possível excluir o produto.'
+            ]);
+        }
+    }
+
+    
     // PADRONIZAR RESPOSTAS
     private function responder(int $status, array $dados): void
     {
