@@ -3,7 +3,7 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -17,9 +17,24 @@ require_once __DIR__ . '/controllers/UsuarioController.php';
 require_once __DIR__ . '/controllers/ProdutoController.php';
 require_once __DIR__ . '/controllers/HistoricoController.php';
 require_once __DIR__ . '/controllers/RelatorioController.php';
+require_once __DIR__ . '/middlewares/Autenticacao.php';
 
 $caminho = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $metodo = $_SERVER['REQUEST_METHOD'];
+
+// NORMALIZAR O CAMINHO DA API
+$caminho = rtrim($caminho, '/');
+
+if ($caminho === '') {
+    $caminho = '/';
+}
+
+// REMOVER O PREFIXO /api QUANDO EXISTIR
+if (strpos($caminho, '/api/') === 0) {
+    $caminho = substr($caminho, 4);
+} elseif ($caminho === '/api') {
+    $caminho = '/';
+}
 
 try {
     $banco = new Database();
@@ -38,6 +53,35 @@ try {
         $controller->login();
         exit;
     }
+
+    
+    // PROTEGER AS ROTAS QUE EXIGEM AUTENTICAÇÃO
+    $rotasPublicas = [
+        ['caminho' => '/usuarios', 'metodo' => 'POST'],
+        ['caminho' => '/login', 'metodo' => 'POST'],
+        ['caminho' => '/', 'metodo' => 'GET']
+    ];
+
+    $rotaPublica = false;
+
+    foreach ($rotasPublicas as $rota) {
+        if (
+            $caminho === $rota['caminho'] &&
+            $metodo === $rota['metodo']
+        ) {
+            $rotaPublica = true;
+            break;
+        }
+    }
+
+    if (!$rotaPublica) {
+        $usuarioAutenticado = Autenticacao::validar($conexao);
+
+        if ($usuarioAutenticado === null) {
+            exit;
+        }
+    }
+
 
     // ROTA: CADASTRAR PRODUTO
     if ($caminho === '/produtos' && $metodo === 'POST') {

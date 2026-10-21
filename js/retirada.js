@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const formRetirada = document.getElementById("formRetirada");
 const produtoSelect = document.getElementById("produtoId");
@@ -16,8 +16,10 @@ const estoqueFinal = document.getElementById("estoqueFinal");
 let produtos = [];
 
 const usuarioId = sessionStorage.getItem("usuarioId");
+const token = sessionStorage.getItem("token");
 
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nomeUsuario = sessionStorage.getItem("usuarioNome") || "Usuário";
@@ -34,7 +36,11 @@ async function carregarProdutos() {
         '<option value="">Carregando produtos...</option>';
 
     try {
-        const resposta = await fetch(`${API_URL}/produtos`);
+        const resposta = await fetch(`${API_URL}/produtos`, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const resultado = await resposta.json();
 
         if (!resposta.ok || !resultado.sucesso) {
@@ -174,8 +180,9 @@ formRetirada.addEventListener("submit", async function (evento) {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
-                },
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+},
                 body: JSON.stringify({
                     quantidade,
                     responsavel,

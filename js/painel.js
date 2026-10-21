@@ -1,8 +1,9 @@
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const usuarioId = sessionStorage.getItem("usuarioId");
 const usuarioNome = sessionStorage.getItem("usuarioNome");
+const token = sessionStorage.getItem("token");
 
 const nomeUsuario = document.getElementById("nomeUsuario");
 const saudacaoUsuario = document.getElementById("saudacaoUsuario");
@@ -11,7 +12,8 @@ const listaProdutos = document.getElementById("listaProdutos");
 const mensagem = document.getElementById("mensagem");
 
 // Verifica se existe um usuário que passou pela tela de login.
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nome = usuarioNome || "Usuário";
@@ -26,7 +28,12 @@ if (!usuarioId) {
 // Busca os produtos cadastrados na API.
 async function carregarProdutos() {
     try {
-        const resposta = await fetch(`${API_URL}/produtos`);
+        const resposta = await fetch(`${API_URL}/produtos`, {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const dados = await resposta.json();
 
         if (!resposta.ok || !dados.sucesso) {

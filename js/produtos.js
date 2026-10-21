@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const formProduto = document.getElementById("formProduto");
 const produtoId = document.getElementById("produtoId");
@@ -24,8 +24,10 @@ let produtos = [];
 
 // Verifica se o usuário passou pela tela de login.
 const usuarioId = sessionStorage.getItem("usuarioId");
+const token = sessionStorage.getItem("token");
 
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nome = sessionStorage.getItem("usuarioNome") || "Usuário";
@@ -96,12 +98,13 @@ formProduto.addEventListener("submit", async function (evento) {
             : `${API_URL}/produtos`;
 
         const resposta = await fetch(url, {
-            method: editando ? "PUT" : "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        });
+    method: editando ? "PUT" : "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(dados)
+});
 
         const resultado = await resposta.json();
 
@@ -151,7 +154,12 @@ async function carregarProdutos() {
     limparMensagem(mensagemLista);
 
     try {
-        const resposta = await fetch(`${API_URL}/produtos`);
+        const resposta = await fetch(`${API_URL}/produtos`, {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const resultado = await resposta.json();
 
         if (!resposta.ok || !resultado.sucesso) {
@@ -355,11 +363,14 @@ async function excluirProduto(id) {
 
     try {
         const resposta = await fetch(
-            `${API_URL}/produtos/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
+    `${API_URL}/produtos/${id}`,
+    {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+);
 
         const resultado = await resposta.json();
 

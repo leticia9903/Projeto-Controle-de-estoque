@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const listaHistorico = document.getElementById("listaHistorico");
 const campoPesquisa = document.getElementById("pesquisa");
@@ -10,8 +10,10 @@ const btnAtualizar = document.getElementById("btnAtualizar");
 let movimentacoes = [];
 
 const usuarioId = sessionStorage.getItem("usuarioId");
+const token = sessionStorage.getItem("token");
 
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nomeUsuario = sessionStorage.getItem("usuarioNome") || "Usuário";
@@ -37,7 +39,11 @@ async function carregarHistorico() {
     `;
 
     try {
-        const resposta = await fetch(`${API_URL}/historico`);
+        const resposta = await fetch(`${API_URL}/historico`, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const resultado = await resposta.json();
 
         if (!resposta.ok || !resultado.sucesso) {

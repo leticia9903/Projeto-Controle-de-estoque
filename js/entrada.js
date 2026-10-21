@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const formEntrada = document.getElementById("formEntrada");
 const campoProduto = document.getElementById("produto");
@@ -16,8 +16,10 @@ const btnRegistrar = document.getElementById("btnRegistrar");
 let produtos = [];
 
 const usuarioId = sessionStorage.getItem("usuarioId");
+const token = sessionStorage.getItem("token");
 
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nome = sessionStorage.getItem("usuarioNome") || "Usuário";
@@ -34,7 +36,11 @@ async function carregarProdutos() {
     campoProduto.innerHTML = '<option value="">Carregando produtos...</option>';
 
     try {
-        const resposta = await fetch(`${API_URL}/produtos`);
+        const resposta = await fetch(`${API_URL}/produtos`, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const dados = await resposta.json();
 
         if (!resposta.ok || !dados.sucesso) {
@@ -153,8 +159,9 @@ formEntrada.addEventListener("submit", async function (evento) {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
-                },
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+},
                 body: JSON.stringify(dados)
             }
         );

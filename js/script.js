@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const formLogin = document.getElementById("formLogin");
 const mensagem = document.getElementById("mensagem");
@@ -34,6 +34,7 @@ formLogin.addEventListener("submit", async function (evento) {
 
         const usuario = dados.usuario;
 
+        sessionStorage.setItem("token", dados.token);
         sessionStorage.setItem("usuarioId", usuario.id);
         sessionStorage.setItem("usuarioNome", usuario.nome);
         sessionStorage.setItem("usuarioEmail", usuario.email);

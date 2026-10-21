@@ -1,4 +1,5 @@
 
+
 <?php
 
 class Database
@@ -9,27 +10,29 @@ class Database
     private string $username;
     private string $password;
 
-    public function __construct()
-    {
-        // AMBIENTE LOCAL OU HOSPEDAGEM
-        $ambiente = getenv('APP_ENV') ?: 'local';
 
-        if ($ambiente === 'producao') {
-            // DADOS DA HOSPEDAGEM INFINITYFREE
-            $this->host = 'sql303.infinityfree.com';
-            $this->dbname = 'if0_43221614_Estoque';
-            $this->username = 'if0_43221614';
+    
+public function __construct()
+{
+    $arquivoProducao = __DIR__ . '/estoque_config.php';
 
-            // SUBSTITUA PELA SENHA REAL DO MYSQL DA HOSPEDAGEM
-            $this->password = 'SUA_SENHA_MYSQL_AQUI';
-        } else {
-            // DADOS DO XAMPP
-            $this->host = '127.0.0.1';
-            $this->dbname = 'estoque_escolar';
-            $this->username = 'root';
-            $this->password = '';
-        }
+    if (is_file($arquivoProducao)) {
+        $configuracao = require $arquivoProducao;
+
+        $this->host = $configuracao['host'];
+        $this->port = $configuracao['port'];
+        $this->dbname = $configuracao['dbname'];
+        $this->username = $configuracao['username'];
+        $this->password = $configuracao['password'];
+    } else {
+        // Configuração local do XAMPP.
+        $this->host = '127.0.0.1';
+        $this->dbname = 'estoque_escolar';
+        $this->username = 'root';
+        $this->password = '';
     }
+}
+
 
     public function conectar(): PDO
     {

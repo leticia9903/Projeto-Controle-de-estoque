@@ -96,6 +96,7 @@ class UsuarioController
         }
     }
 
+
     // REALIZAR LOGIN
     public function login(): void
     {
@@ -138,9 +139,7 @@ class UsuarioController
                     WHERE email = :email';
 
             $consulta = $this->conexao->prepare($sql);
-            $consulta->execute([
-                ':email' => $email
-            ]);
+            $consulta->execute([':email' => $email]);
 
             $usuario = $consulta->fetch();
 
@@ -155,9 +154,28 @@ class UsuarioController
                 return;
             }
 
+            // Gerar um token aleatório para a sessão autenticada.
+            $token = bin2hex(random_bytes(32));
+            $tokenHash = hash('sha256', $token);
+
+            // Expiração do token: 8 horas.
+            $expiraEm = date('Y-m-d H:i:s', time() + 8 * 60 * 60);
+
+            $sqlToken = 'INSERT INTO tokens_autenticacao
+                         (usuario_id, token_hash, expira_em)
+                         VALUES (:usuario_id, :token_hash, :expira_em)';
+
+            $consultaToken = $this->conexao->prepare($sqlToken);
+            $consultaToken->execute([
+                ':usuario_id' => $usuario['id'],
+                ':token_hash' => $tokenHash,
+                ':expira_em' => $expiraEm
+            ]);
+
             $this->responder(200, [
                 'sucesso' => true,
                 'mensagem' => 'Login realizado com sucesso.',
+                'token' => $token,
                 'usuario' => [
                     'id' => (int) $usuario['id'],
                     'nome' => $usuario['nome'],
@@ -165,7 +183,7 @@ class UsuarioController
                 ]
             ]);
 
-        } catch (PDOException $erro) {
+        } catch (Throwable $erro) {
             error_log(
                 'Erro ao realizar login: ' . $erro->getMessage()
             );
@@ -176,6 +194,7 @@ class UsuarioController
             ]);
         }
     }
+
 
     // PADRONIZAR RESPOSTAS DA API
     private function responder(int $status, array $dados): void

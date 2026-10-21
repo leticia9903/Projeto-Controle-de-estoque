@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://controleestoqueescolar.ifree.page/api";
 
 const dataInicio = document.getElementById("dataInicio");
 const dataFim = document.getElementById("dataFim");
@@ -12,8 +12,10 @@ let dadosRelatorio = null;
 
 // VERIFICAR LOGIN
 const usuarioId = sessionStorage.getItem("usuarioId");
+const token = sessionStorage.getItem("token");
 
-if (!usuarioId) {
+if (!usuarioId || !token) {
+    sessionStorage.clear();
     window.location.href = "index.html";
 } else {
     const nomeUsuario = sessionStorage.getItem("usuarioNome") || "Usuário";
@@ -42,7 +44,11 @@ async function carregarRelatorio(inicio = "", fim = "") {
         const query = parametros.toString();
         const url = `${API_URL}/relatorios${query ? `?${query}` : ""}`;
 
-        const resposta = await fetch(url);
+        const resposta = await fetch(url, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
         const resultado = await resposta.json();
 
         if (!resposta.ok || !resultado.sucesso) {
